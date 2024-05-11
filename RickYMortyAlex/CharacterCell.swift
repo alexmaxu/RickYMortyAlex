@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct CharacterCell: View {
+    let character: RyMCharacterDTO
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            VStack {
+                Text(character.name)
+                Text("id: \(character.id)")
+            }
+            Spacer()
+            AsyncImage(url: character.image) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(.rect(cornerRadius: 20))
+                    .frame(width: 80)
+                    .padding()
+            } placeholder: {
+                ProgressView()
+            }
+            
+        }
     }
 }
 
 #Preview {
-    CharacterCell()
+    CharacterCell(character: .previewCharacter)
 }

@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+extension URLSession {
+    func getData(request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse) {
+        let (data, response) = try await data(for: request)
+        
+        guard let responseHttp = response as? HTTPURLResponse else {
+            throw NetworkError.nonHTTP          
+        }
+        
+        return (data, responseHttp)
+    }
+}
